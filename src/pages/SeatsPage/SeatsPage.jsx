@@ -135,8 +135,8 @@ export default function SeatsPage() {
             <button data-test="book-seat-btn" onClick={reserve}>Reservar Assento(s)</button>
           </FormContainer>
           <FooterContainer>
-            <div>
-              <img data-test="footer" src={seats.movie.posterURL} alt={seats.movie.title} />
+            <div data-test="footer">
+              <img src={seats.movie.posterURL} alt={seats.movie.title} />
             </div>
             <div>
               <p>{seats.movie.title}</p>
