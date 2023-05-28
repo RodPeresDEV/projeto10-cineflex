@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [catalog, setCatalog] = useState([]);
-  useEffect(() => { //useEffect é utilizado para disparar uma ação quando a página for acessada
+
+  useEffect(() => {
+    //useEffect é utilizado para disparar uma ação quando a página for acessada
     axios.defaults.headers.common["Authorization"] = "djEfD23PF9q52MAgGSFlV4A1";
     axios
       .get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
@@ -13,6 +15,7 @@ export default function HomePage() {
         setCatalog(res.data);
       });
   }, []);
+  
   return (
     <PageContainer>
       {catalog.length === 0 ? (
