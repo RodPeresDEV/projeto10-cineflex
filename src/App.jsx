@@ -1,19 +1,28 @@
 import styled from "styled-components"
 import HomePage from "./pages/HomePage/HomePage"
+import {Route, BrowserRouter, Routes, Link} from "react-router-dom" //mudança de página dentro do site
 import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
+import ResetStyle from "./style/ResetStyle"
+import GlobalStyle from "./style/GlobalStyle"
 
 export default function App() {
     return (
-        <>
-           <NavContainer>CINEFLEX</NavContainer>
-
-            <HomePage />
+        <BrowserRouter>
+        <ResetStyle/>
+        <GlobalStyle/>
+        <Link to="/">
+        <NavContainer>CINEFLEX</NavContainer>
+        </Link>
+        <Routes>
+            <Route path="/" element={<HomePage />}/>
+            <Route path="/sessions/:movieId" element={<SessionsPage/>}/>
+        </Routes>
             {/* <SeatsPage /> */}
             {/* <SessionsPage /> */}
             {/* <SuccessPage /> */}
-        </>
+        </BrowserRouter>
     )
 }
 

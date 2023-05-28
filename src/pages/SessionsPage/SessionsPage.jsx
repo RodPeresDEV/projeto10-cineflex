@@ -1,45 +1,47 @@
+import axios from 'axios';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from "styled-components"
 
 export default function SessionsPage() {
-
+    const params = useParams(); //
+    const [sessions, setSessions] = useState({})
+    const [loading, setLoading] = useState(true)
+    useEffect(() => {
+        axios.defaults.headers.common["Authorization"] = "djEfD23PF9q52MAgGSFlV4A1";
+        axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${params.movieId}/showtimes`).then((res) => {
+            setSessions(res.data)
+            setLoading(false)
+        })
+    }, [])
     return (
         <PageContainer>
-            Selecione o horário
-            <div>
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
-
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
-
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
-            </div>
-
-            <FooterContainer>
+            {loading === true ? <h1>Carregando</h1> : (
+                <>
+                <p>Selecione o horário</p>
                 <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    {sessions.days.map((day) => (
+                    <SessionContainer key={day.id}>
+                        <p>{day.weekday} - {day.date}</p>
+                        <ButtonsContainer>
+                            {day.showtimes.map((time) => (
+                                <button key={time.id}>{time.name}</button>
+                            ))}
+                        </ButtonsContainer>
+                    </SessionContainer>
+                ))}
+                </div>
+                <FooterContainer>
+                <div>
+                    <img src={sessions.posterURL} alt={sessions.title} />
                 </div>
                 <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
+                    <p>{sessions.title}</p>
                 </div>
             </FooterContainer>
-
+                </>
+            )}
         </PageContainer>
     )
 }
