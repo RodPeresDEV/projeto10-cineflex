@@ -27,7 +27,7 @@ export default function HomePage() {
             {catalog.map((movie) => (
               <Link to={`/sessoes/${movie.id}`} key={movie.id}>
                 <MovieContainer>
-                  <img src={movie.posterURL} alt={movie.title} />
+                  <img data-test="movie" src={movie.posterURL} alt={movie.title} />
                 </MovieContainer>
               </Link>
             ))}

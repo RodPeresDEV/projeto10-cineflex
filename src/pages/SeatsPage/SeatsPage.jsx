@@ -89,6 +89,7 @@ export default function SeatsPage() {
           <SeatsContainer>
             {seats.seats.map((seat) => (
               <SeatItem
+                data-test="seat"
                 seatId={seat.id}
                 selectedSeat={selectedSeat}
                 onClick={() => selectSeat(seat)}
@@ -117,6 +118,7 @@ export default function SeatsPage() {
           <FormContainer>
             Nome do Comprador:
             <input
+              data-test="client-name"
               onChange={(event) => setName(event.target.value)}
               value={name}
               placeholder="Digite seu nome..."
@@ -124,16 +126,17 @@ export default function SeatsPage() {
             {/* nota*/}
             CPF do Comprador:
             <input
+              data-test="client-cpf" 
               onChange={(event) => setCpf(event.target.value)}
               value={cpf}
               placeholder="Digite seu CPF..."
             />{" "}
             {/* nota*/}
-            <button onClick={reserve}>Reservar Assento(s)</button>
+            <button data-test="book-seat-btn" onClick={reserve}>Reservar Assento(s)</button>
           </FormContainer>
           <FooterContainer>
             <div>
-              <img src={seats.movie.posterURL} alt={seats.movie.title} />
+              <img data-test="footer" src={seats.movie.posterURL} alt={seats.movie.title} />
             </div>
             <div>
               <p>{seats.movie.title}</p>
