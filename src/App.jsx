@@ -13,14 +13,13 @@ export default function App() {
         <ResetStyle/>
         <GlobalStyle/>
         <Link to="/">
-        <NavContainer>CINEFLEX</NavContainer>
+            <NavContainer>CINEFLEX</NavContainer>
         </Link>
         <Routes>
             <Route path="/" element={<HomePage />}/>
-            <Route path="/sessions/:movieId" element={<SessionsPage/>}/>
+            <Route path="/sessoes/:movieId" element={<SessionsPage/>}/>
+            <Route path="/assentos/:seatId" element={<SeatsPage/>}/>
         </Routes>
-            {/* <SeatsPage /> */}
-            {/* <SessionsPage /> */}
             {/* <SuccessPage /> */}
         </BrowserRouter>
     )

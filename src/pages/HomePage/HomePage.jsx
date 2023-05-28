@@ -22,7 +22,7 @@ export default function HomePage() {
           <h1>Selecione o Filme</h1>
           <ListContainer>
             {catalog.map((movie) => (
-              <Link to={`/sessions/${movie.id}`} key={movie.id}>
+              <Link to={`/sessoes/${movie.id}`} key={movie.id}>
                 <MovieContainer>
                   <img src={movie.posterURL} alt={movie.title} />
                 </MovieContainer>
