@@ -14,35 +14,45 @@ export default function SeatsPage() {
 
   function reserve(event) {
     event.preventDefault();
+
+    if (!selectedSeat || !name || !cpf) {
+      alert("Por favor, forneça todas as informações necessárias.");
+      return;
+    }
+
     axios
-      .post(`https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many`, {
-        //nota
+      .post(`https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many`, { //nota
         ids: selectedSeat,
         name: name,
         cpf: cpf,
       })
-      .then(() => {
-        const result = [];
-        for (let i = 0; i < seats.seats.length; i++) {
-          //
-          const currentSeat = seats.seats[i];
-          for (let j = 0; j < selectedSeat.length; j++) {
-            const currentSelectedSeat = selectedSeat[j];
-            if (currentSeat.id === currentSelectedSeat) {
-              result.push(currentSeat);
+      .then((response) => {
+        if (response.status === 200) {
+          const result = [];
+          for (let i = 0; i < seats.seats.length; i++) {      //
+            const currentSeat = seats.seats[i];
+            for (let j = 0; j < selectedSeat.length; j++) {
+              const currentSelectedSeat = selectedSeat[j];
+              if (currentSeat.id === currentSelectedSeat) {
+                result.push(currentSeat);
+              }
             }
           }
+          navigate("/sucesso", {
+            state: {
+              name: name,
+              cpf: cpf,
+              seats: result,
+              movieName: seats.movie.title,
+              date: seats.day.date,
+              hour: seats.name,
+            },
+          });
+        } else {
+          console.log(
+            "Ocorreu um erro na reserva. Por favor, tente novamente."
+          );
         }
-        navigate("/sucesso", {
-          state: {
-            name: name,
-            cpf: cpf,
-            seats: result,
-            movieName: seats.movie.title,
-            date: seats.day.date,
-            hour: seats.name,
-          },
-        });
       });
   }
 
@@ -126,13 +136,15 @@ export default function SeatsPage() {
             {/* nota*/}
             CPF do Comprador:
             <input
-              data-test="client-cpf" 
+              data-test="client-cpf"
               onChange={(event) => setCpf(event.target.value)}
               value={cpf}
               placeholder="Digite seu CPF..."
             />{" "}
             {/* nota*/}
-            <button data-test="book-seat-btn" onClick={reserve}>Reservar Assento(s)</button>
+            <button data-test="book-seat-btn" onClick={reserve}>
+              Reservar Assento(s)
+            </button>
           </FormContainer>
           <FooterContainer>
             <div data-test="footer">
