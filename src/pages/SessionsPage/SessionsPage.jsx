@@ -29,13 +29,13 @@ export default function SessionsPage() {
           <p>Selecione o horário</p>
           <div>
             {sessions.days.map((day) => (
-              <SessionContainer key={day.id}>
-                <p data-test="movie-day">
+              <SessionContainer data-test="movie-day" key={day.id}>
+                <p>
                   {day.weekday} - {day.date}
                 </p>
-                <ButtonsContainer>
+                <ButtonsContainer data-test="showtime">
                   {day.showtimes.map((time) => (
-                    <Link data-test="showtime" to={`/assentos/${time.id}`} key={time.id}>
+                    <Link to={`/assentos/${time.id}`} key={time.id}>
                       <button>{time.name}</button>
                     </Link>
                   ))}
